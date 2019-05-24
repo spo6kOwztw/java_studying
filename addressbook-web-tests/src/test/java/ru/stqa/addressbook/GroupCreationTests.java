@@ -6,46 +6,46 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class GroupCreationTests {
-  private WebDriver wc;
+  private WebDriver wd;
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
-    wc = new FirefoxDriver();
-    wc.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    wd = new FirefoxDriver();
+    wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
   public void testGroupCreation() throws Exception {
-    wc.get("http://localhost/addressbook/");
-    wc.findElement(By.name("user")).click();
-    wc.findElement(By.name("user")).clear();
-    wc.findElement(By.name("user")).sendKeys("admin");
-    wc.findElement(By.name("pass")).clear();
-    wc.findElement(By.name("pass")).sendKeys("secret");
-    wc.findElement(By.xpath("//input[@value='Login']")).click();
-    wc.findElement(By.linkText("groups")).click();
-    wc.findElement(By.name("new")).click();
-    wc.findElement(By.name("group_name")).click();
-    wc.findElement(By.name("group_name")).clear();
-    wc.findElement(By.name("group_name")).sendKeys("New");
-    wc.findElement(By.name("group_header")).click();
-    wc.findElement(By.name("group_header")).clear();
-    wc.findElement(By.name("group_header")).sendKeys("header");
-    wc.findElement(By.name("group_footer")).clear();
-    wc.findElement(By.name("group_footer")).sendKeys("footer");
-    wc.findElement(By.name("submit")).click();
-    wc.findElement(By.linkText("group page")).click();
-    wc.findElement(By.linkText("Logout")).click();
+    wd.get("http://localhost/addressbook/");
+    wd.findElement(By.name("user")).click();
+    wd.findElement(By.name("user")).clear();
+    wd.findElement(By.name("user")).sendKeys("admin");
+    wd.findElement(By.name("pass")).clear();
+    wd.findElement(By.name("pass")).sendKeys("secret");
+    wd.findElement(By.xpath("//input[@value='Login']")).click();
+    wd.findElement(By.linkText("groups")).click();
+    wd.findElement(By.name("new")).click();
+    wd.findElement(By.name("group_name")).click();
+    wd.findElement(By.name("group_name")).clear();
+    wd.findElement(By.name("group_name")).sendKeys("New");
+    wd.findElement(By.name("group_header")).click();
+    wd.findElement(By.name("group_header")).clear();
+    wd.findElement(By.name("group_header")).sendKeys("header");
+    wd.findElement(By.name("group_footer")).clear();
+    wd.findElement(By.name("group_footer")).sendKeys("footer");
+    wd.findElement(By.name("submit")).click();
+    wd.findElement(By.linkText("group page")).click();
+    wd.findElement(By.linkText("Logout")).click();
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
-    wc.quit();
+    wd.quit();
   }
 
   private boolean isElementPresent(By by) {
     try {
-      wc.findElement(by);
+      wd.findElement(by);
       return true;
     } catch (NoSuchElementException e) {
       return false;
@@ -54,7 +54,7 @@ public class GroupCreationTests {
 
   private boolean isAlertPresent() {
     try {
-      wc.switchTo().alert();
+      wd.switchTo().alert();
       return true;
     } catch (NoAlertPresentException e) {
       return false;
