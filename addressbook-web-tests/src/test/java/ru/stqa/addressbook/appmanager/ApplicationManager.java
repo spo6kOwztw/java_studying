@@ -9,9 +9,10 @@ import org.testng.annotations.AfterMethod;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApplicationManager extends NavigationHelper {
+public class ApplicationManager {
+    WebDriver wd;
 
-    public WebDriver wd;
+    private NavigationHelper navigationHelper;
 
     private GroupHelper groupHelper;
 
@@ -20,6 +21,7 @@ public class ApplicationManager extends NavigationHelper {
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
+        navigationHelper = new NavigationHelper(wd);
         login("admin", "secret");
     }
 
@@ -30,10 +32,6 @@ public class ApplicationManager extends NavigationHelper {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
         wd.findElement(By.xpath("//input[@value='Login']")).click();
-    }
-
-    public void gotoGroupPage() {
-        wd.findElement(By.linkText("groups")).click();
     }
 
     @AfterMethod(alwaysRun = true)
@@ -48,7 +46,7 @@ public class ApplicationManager extends NavigationHelper {
 
     public boolean isElementPresent(By by) {
         try {
-            wd.findElement(by);
+           wd.findElement(by);
             return true;
         } catch (NoSuchElementException e) {
             return false;
@@ -66,5 +64,9 @@ public class ApplicationManager extends NavigationHelper {
 
     public GroupHelper getGroupHelper() {
         return groupHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
