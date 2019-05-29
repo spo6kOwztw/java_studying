@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.stqa.addressbook.appmanager.ApplicationManager;
-import ru.stqa.addressbook.model.ContactData;
 
 public class TestBase {
 
@@ -31,7 +30,7 @@ public class TestBase {
 
     @AfterMethod
     public void tearDown() throws Exception {
-        app.init();
+        app.stop();
     }
 
     private boolean isElementPresent(By by) {
