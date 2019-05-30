@@ -21,10 +21,13 @@ public class ContactHelper  extends BaseHelper {
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
     }
+    public void initContactCreation() {click(By.linkText("add new"));}
+    public void selectContact() {click(By.id("2"));}
+    public void deleteSelectedContact() {click(By.xpath("//input[@value='Delete']"));}
+    public void submitContactDeletion() {wd.switchTo().alert().accept();}
 
-    public void initContactCreation() {
-        wd.findElement(By.linkText("add new")).click();
-    }
+
+
 
 
 }
