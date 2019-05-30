@@ -25,6 +25,8 @@ public class ContactHelper  extends BaseHelper {
     public void selectContact() {click(By.id("2"));}
     public void deleteSelectedContact() {click(By.xpath("//input[@value='Delete']"));}
     public void submitContactDeletion() {wd.switchTo().alert().accept();}
+    public void initContactEdit() {click(By.xpath("//img[@alt='Edit']"));}
+    public void submitContactEdit() {click(By.name("update"));}
 
 
 
