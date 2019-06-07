@@ -2,7 +2,11 @@ package ru.stqa.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
+
+import java.util.NoSuchElementException;
 
 public class ContactHelper extends BaseHelper {
 
@@ -15,15 +19,22 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("middlename"), contactData.getMiddleName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
-    }
 
-    public void initContactCreation() {
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        }
+        else {
+            Assert.assertFalse(isElementPresent(By.name("new_group"))) ;
+        }
+        }
+
+            public void initContactCreation() {
         click(By.linkText("add new"));
     }
 
