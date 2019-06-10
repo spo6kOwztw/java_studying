@@ -34,7 +34,6 @@ public class GroupHelper extends BaseHelper {
     }
 
     public void selectGroup() {
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Groups'])[1]/following::span[1]"));
         click(By.name("selected[]"));
     }
 
