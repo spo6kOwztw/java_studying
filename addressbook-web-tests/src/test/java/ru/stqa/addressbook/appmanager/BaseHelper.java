@@ -3,7 +3,7 @@ package ru.stqa.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.NoSuchElementException;
+import org.openqa.selenium.NoSuchElementException;
 
 public class BaseHelper {
     protected WebDriver wd;

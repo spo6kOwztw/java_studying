@@ -8,7 +8,7 @@ public class GroupEditTests extends TestBase {
     @Test
     public void testGroupEdit() {
         app.getNavigationHelper().gotoGroupPage();
-        if (! app.getGroupHelper().isThereAGroup()) {
+        if (!app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData("New", "header", "footer"));
         }
         app.getGroupHelper().selectGroup();
