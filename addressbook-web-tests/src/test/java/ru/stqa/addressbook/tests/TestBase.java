@@ -11,7 +11,7 @@ import ru.stqa.addressbook.appmanager.ApplicationManager;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
     protected WebDriver wd;
 
     @BeforeMethod(alwaysRun = true)

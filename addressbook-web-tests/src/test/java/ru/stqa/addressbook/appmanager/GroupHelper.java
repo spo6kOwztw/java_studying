@@ -34,11 +34,24 @@ public class GroupHelper extends BaseHelper {
     }
 
     public void selectGroup() {
-        click(By.name("selected[]"));
+        click((By.xpath("//input[@name='selected[]']")));
     }
 
     public void initGroupEdit(){click(By.name("edit"));}
     public void submitGroupEdit() {
         click(By.name("update"));
-    }}
+    }
+
+    public void createGroup(GroupData group) {
+        initGroupCreation();
+        fillGroupForm(group);
+        submitGroupCreation();
+        returnToGroupPage();
+    }
+
+    public boolean isThereAGroup() {
+    return isElementPresent(By.xpath("//input[@name='selected[]']"));
+    }
+
+}
 
