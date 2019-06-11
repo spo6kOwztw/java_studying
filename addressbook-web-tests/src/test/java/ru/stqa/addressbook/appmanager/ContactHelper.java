@@ -6,7 +6,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 
-import java.util.NoSuchElementException;
 
 public class ContactHelper extends BaseHelper {
 
@@ -39,7 +38,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContact() {
-        click(By.id("2"));
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
     }
 
     public void deleteSelectedContact() {
@@ -51,12 +50,21 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void initContactEdit() {
-        click(By.xpath("//img[@alt='Edit']"));
+        click(By.xpath("//img[@title='Edit']"));
     }
 
     public void submitContactEdit() {
         click(By.name("update"));
     }
 
+    public boolean isThereAContact() {
+        return isElementPresent(By.xpath("//input[@name='selected[]']"));
+    }
 
+    public void createContact(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
+
+    }
 }
