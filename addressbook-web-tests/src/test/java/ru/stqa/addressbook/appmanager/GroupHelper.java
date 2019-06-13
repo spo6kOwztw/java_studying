@@ -3,6 +3,7 @@ package ru.stqa.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.addressbook.model.GroupData;
+import java.util.List;
 
 public class GroupHelper extends BaseHelper {
 
@@ -53,5 +54,9 @@ public class GroupHelper extends BaseHelper {
     return isElementPresent(By.xpath("//input[@name='selected[]']"));
     }
 
+    public int getGroupCount() {
+       return wd.findElements(By.xpath("//input[@name='selected[]']")).size();
+
+    }
 }
 
