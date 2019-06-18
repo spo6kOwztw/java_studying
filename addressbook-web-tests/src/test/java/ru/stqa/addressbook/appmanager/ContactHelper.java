@@ -37,8 +37,8 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
     }
 
-    public void selectContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+    public void selectContact(int index) {
+        wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input")).get(index).click();
     }
 
     public void deleteSelectedContact() {
