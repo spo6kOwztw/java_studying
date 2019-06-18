@@ -17,6 +17,7 @@ public class GroupEditTests extends TestBase {
         app.getGroupHelper().initGroupEdit();
         app.getGroupHelper().fillGroupForm(new GroupData("New1", "header1", "footer1"));
         app.getGroupHelper().submitGroupEdit();
+        app.getNavigationHelper().gotoGroupPage();
         int after = app.getGroupHelper().getGroupCount();
         Assert.assertEquals(after, before);
     }

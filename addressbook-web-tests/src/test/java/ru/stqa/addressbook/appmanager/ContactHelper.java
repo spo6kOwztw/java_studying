@@ -58,7 +58,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public boolean isThereAContact() {
-        return isElementPresent(By.xpath("//input[@name='selected[]']"));
+        return isElementPresent(By.name("selected[]"));
     }
 
     public void createContact(ContactData contact) {
@@ -69,6 +69,6 @@ public class ContactHelper extends BaseHelper {
     }
 
     public int getContactCount() {
-        return wd.findElements(By.xpath("//input[@name='selected[]']")).size();
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
