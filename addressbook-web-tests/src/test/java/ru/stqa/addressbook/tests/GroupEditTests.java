@@ -2,7 +2,6 @@ package ru.stqa.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.HashSet;
@@ -19,7 +18,7 @@ public class GroupEditTests extends TestBase {
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(before.size()-1);
         app.getGroupHelper().initGroupEdit();
-        GroupData group = new GroupData("New1", "header1", "footer1");
+        GroupData group = new GroupData(before.get(before.size()-1).getId(),"New1", "header1", "footer1");
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().submitGroupEdit();
         app.getNavigationHelper().gotoGroupPage();
