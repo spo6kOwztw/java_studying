@@ -10,10 +10,7 @@ import java.util.List;
 
 public class GroupHelper extends BaseHelper {
 
-    public GroupHelper(WebDriver wd) {
-        super(wd);
-
-    }
+    public GroupHelper(WebDriver wd) { super(wd); }
 
     public void returnToGroupPage() {
         click(By.linkText("group page"));
@@ -67,8 +64,7 @@ public class GroupHelper extends BaseHelper {
         for (WebElement element  : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            GroupData group = new GroupData(id, name,null, null);
-            groups.add(group);
+            groups.add(new GroupData().withId(id).withName(name));
         }
         return groups;
     }
