@@ -15,6 +15,19 @@ public class GroupData {
         this.footer = footer;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupData groupData = (GroupData) o;
+        return Objects.equals(name, groupData.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
     public GroupData(int id, String name, String header, String footer) {
         this.id = id;
         this.name = name;
