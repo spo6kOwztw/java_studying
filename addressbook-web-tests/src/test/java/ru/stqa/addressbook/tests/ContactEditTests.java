@@ -12,10 +12,10 @@ public class ContactEditTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().createContact(new ContactData("william", "seward", "burroughs", "+79999999999", "junkie@beat.com", "New1"));
-            app.getNavigationHelper().gotoHomePage();
+            app.goTo().gotoHomePage();
         }
     }
 
@@ -27,7 +27,7 @@ public class ContactEditTests extends TestBase {
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "billy", "", "b", "+79999999990", "junkie@beat.ru", "New1");
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactEdit();
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size());
 

@@ -2,11 +2,9 @@ package ru.stqa.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -14,11 +12,11 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void testGroupCreation() throws Exception {
-        app.getNavigationHelper().gotoGroupPage();
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        app.goTo().groupPage();
+        List<GroupData> before = app.group().list();
         GroupData group = new GroupData("New2", null, null);
-        app.getGroupHelper().createGroup(group);
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        app.group().create(group);
+        List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() + 1);
 
         before.add(group);
