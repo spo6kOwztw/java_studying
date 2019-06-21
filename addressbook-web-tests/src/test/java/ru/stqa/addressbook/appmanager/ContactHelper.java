@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
-import ru.stqa.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContact(int index) {
-        wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr[2]/td/input")).get(index).click();
+        wd.findElements(By.xpath("//table[@id='maintable']/tbody//td/input")).get(index).click();
     }
 
     public void deleteSelectedContact() {
@@ -78,10 +77,15 @@ public class ContactHelper extends BaseHelper {
 
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("td.center"));
+        List<WebElement> elements = wd.findElements(By.cssSelector("tbody tr[name='entry']"));
         for (WebElement element : elements) {
-            String name = element.getText();
-            ContactData contact = new ContactData(null, null, null, null, null, null);
+            List<WebElement> attributes = element.findElements(By.tagName("td"));
+            String firstname = attributes.get(2).getText();
+            //String middlename = attributes.get(3).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = attributes.get(1).getText();
+
+            ContactData contact = new ContactData(firstname, null, lastname, null, null, null);
             contacts.add(contact);
         }
         return contacts;
