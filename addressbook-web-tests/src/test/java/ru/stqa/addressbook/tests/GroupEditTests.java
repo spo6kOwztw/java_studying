@@ -15,16 +15,13 @@ public class GroupEditTests extends TestBase {
             app.getGroupHelper().createGroup(new GroupData("New", "header", "footer"));
         }
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size()-1);
-        app.getGroupHelper().initGroupEdit();
-        GroupData group = new GroupData(before.get(before.size()-1).getId(),"New1", "header1", "footer1");
-        app.getGroupHelper().fillGroupForm(group);
-        app.getGroupHelper().submitGroupEdit();
-        app.getNavigationHelper().gotoGroupPage();
+        int index = before.size()-1;
+        GroupData group = new GroupData(before.get(index).getId(),"New1", "header1", "footer1");
+        app.getGroupHelper().modifyGroup(index, group);
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size()-1);
+        before.remove(index);
         before.add(group);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
 
