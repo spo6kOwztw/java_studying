@@ -75,7 +75,7 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("tbody tr[name='entry']"));
         for (WebElement element : elements) {
@@ -90,4 +90,24 @@ public class ContactHelper extends BaseHelper {
         }
         return contacts;
     }
+
+    public void create(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact, true);
+        submitContactCreation();
+    }
+
+    public void delete(int index) {
+        selectContact(index);
+        deleteSelectedContact();
+        submitContactDeletion();
+    }
+    public void edit(List<ContactData> before, ContactData contact) {
+        selectContact(before.size() - 1);
+        initContactEdit();
+        fillContactForm(contact, false);
+        submitContactEdit();
+    }
+
+
 }

@@ -21,7 +21,6 @@ public class GroupDeletionTests extends TestBase {
   @Test
   public void testGroupDeletion() {
     List<GroupData> before = app.group().list();
-    GroupData group = new GroupData("New2", null, null);
     int index = before.size() - 1;
     app.group().delete(index);
     List<GroupData> after = app.group().list();

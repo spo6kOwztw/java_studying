@@ -26,7 +26,6 @@ public class GroupEditTests extends TestBase {
         app.group().edit(index, group);
         List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size());
-
         before.remove(index);
         before.add(group);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
