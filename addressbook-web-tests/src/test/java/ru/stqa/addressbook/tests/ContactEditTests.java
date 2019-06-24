@@ -17,7 +17,6 @@ public class ContactEditTests extends TestBase {
             app.getNavigationHelper().gotoHomePage();
         }
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact(before.size()-1);
         app.getContactHelper().initContactEdit();
         ContactData contact = new ContactData(before.get(before.size()-1).getId(), "billy", "", "b", "+79999999990", "junkie@beat.ru", "New1");
         app.getContactHelper().fillContactForm(contact, false);
