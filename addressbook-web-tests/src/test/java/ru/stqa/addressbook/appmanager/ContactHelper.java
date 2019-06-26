@@ -22,15 +22,15 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
-        type(By.name("firstname"), contactData.getFirstName());
-        type(By.name("middlename"), contactData.getMiddleName());
-        type(By.name("lastname"), contactData.getLastName());
-        type(By.name("mobile"), contactData.getMobilePhone());
-        type(By.name("email"), contactData.getEmail());
+    public void fillContactForm(ContactData contact, boolean creation) {
+        type(By.name("firstname"), contact.getFirstName());
+        type(By.name("middlename"), contact.getMiddleName());
+        type(By.name("lastname"), contact.getLastName());
+        type(By.name("mobile"), contact.getMobilePhone());
+        type(By.name("email"), contact.getEmail());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
