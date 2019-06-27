@@ -14,7 +14,13 @@ public class ContactEditTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (!app.contact().isThereAContact()) {
-            app.contact().createContact(new ContactData("william", "seward", "burroughs", "+79999999999", "junkie@beat.com", "New1"));
+            app.contact().createContact(new ContactData()
+                    .withFirstName("william")
+                    .withLastName("Burroughs")
+                    .withMiddleName("X")
+                    .withMobilePhone("0")
+                    .withEmail("0")
+                    .withGroup("name"));
             app.goTo().homePage();
         }
     }
@@ -22,8 +28,9 @@ public class ContactEditTests extends TestBase {
     @Test
     public void testContactEdit() {
         List<ContactData> before = app.contact().list();
-        ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "billy", "", "b", "+79999999990", "junkie@beat.ru", "New1");
         int index = before.size()-1;
+        ContactData contact = new ContactData()
+                .withId(before.get(index).getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
         app.contact().edit(before, contact);
         app.goTo().homePage();
         List<ContactData> after = app.contact().list();
