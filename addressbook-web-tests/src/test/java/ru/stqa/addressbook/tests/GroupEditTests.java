@@ -1,11 +1,17 @@
 package ru.stqa.addressbook.tests;
 
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 
 import java.util.*;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupEditTests extends TestBase {
 
@@ -20,16 +26,14 @@ public class GroupEditTests extends TestBase {
 
     @Test
     public void testGroupEdit() {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData editedGroup = before.iterator().next();
         GroupData group = new GroupData()
                 .withId(editedGroup.getId()).withName("name").withHeader("head").withFooter("foot");
         app.group().edit(group);
-        Set<GroupData> after = app.group().all();
-        Assert.assertEquals(after.size(), before.size());
-        before.remove(editedGroup);
-        before.add(group);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Groups after = app.group().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(editedGroup).withAdded(group)));
 
     }
 
