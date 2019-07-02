@@ -39,7 +39,8 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContact(int id) {
-        wd.findElement(By.id(Integer.toString(id))).click();    }
+        wd.findElement(By.id(Integer.toString(id))).click();
+    }
 
     public void deleteSelectedContact() {
         click(By.xpath("//input[@value='Delete']"));
@@ -97,6 +98,7 @@ public class ContactHelper extends BaseHelper {
         deleteSelectedContact();
         submitContactDeletion();
     }
+
     public void edit(ContactData contact) {
         initContactEdit();
         fillContactForm(contact, false);
