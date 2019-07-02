@@ -22,9 +22,6 @@ public class ContactDeletionTests extends TestBase{
             app.contact().createContact(new ContactData()
                     .withFirstName("william")
                     .withLastName("Burroughs")
-                    .withMiddleName("X")
-                    .withMobilePhone("0")
-                    .withEmail("0")
                     .withGroup("name"));
             app.goTo().homePage();
         }

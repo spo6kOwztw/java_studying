@@ -24,10 +24,8 @@ public class ContactHelper extends BaseHelper {
 
     public void fillContactForm(ContactData contact, boolean creation) {
         type(By.name("firstname"), contact.getFirstName());
-        type(By.name("middlename"), contact.getMiddleName());
         type(By.name("lastname"), contact.getLastName());
-        type(By.name("mobile"), contact.getMobilePhone());
-        type(By.name("email"), contact.getEmail());
+
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.getGroup());
@@ -80,9 +78,9 @@ public class ContactHelper extends BaseHelper {
         for (WebElement element : elements) {
             List<WebElement> attributes = element.findElements(By.tagName("td"));
             String firstname = attributes.get(2).getText();
+            String lastname = attributes.get(1).getText();
             //String middlename = attributes.get(3).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            String lastname = attributes.get(1).getText();
             contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
         }
         return contacts;
@@ -100,7 +98,6 @@ public class ContactHelper extends BaseHelper {
         submitContactDeletion();
     }
     public void edit(ContactData contact) {
-        selectContact(contact.getId());
         initContactEdit();
         fillContactForm(contact, false);
         submitContactEdit();
