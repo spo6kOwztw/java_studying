@@ -16,6 +16,7 @@ import static org.testng.Assert.assertEquals;
 
 public class ContactDeletionTests extends TestBase{
     @BeforeMethod
+
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (!app.contact().isThereAContact()) {
