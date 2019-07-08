@@ -4,9 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
+import ru.stqa.addressbook.model.Contacts;
 
 import java.util.HashSet;
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ContactEditTests extends TestBase {
 
@@ -27,17 +32,15 @@ public class ContactEditTests extends TestBase {
 
     @Test
     public void testContactEdit() {
-        List<ContactData> before = app.contact().list();
-        int index = before.size()-1;
+        Contacts before = app.contact().all();
+        ContactData editedContact = before.iterator().next();
         ContactData contact = new ContactData()
-                .withId(before.get(index).getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
-        app.contact().edit(before, contact);
+                .withId(editedContact.getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
+        app.contact().edit(contact);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
-        Assert.assertEquals(after.size(), before.size());
-        before.remove(index);
-        before.add(contact);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Contacts after = app.contact().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(editedContact).withAdded(contact)));
     }
 
 }
