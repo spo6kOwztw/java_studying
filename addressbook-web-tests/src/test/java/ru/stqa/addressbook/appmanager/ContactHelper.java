@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
+import ru.stqa.addressbook.model.Groups;
 
 import java.util.List;
 
@@ -74,7 +75,12 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
+    private Contacts contactCache = null;
+
     public Contacts all() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("tbody tr[name='entry']"));
         for (WebElement element : elements) {
@@ -91,17 +97,20 @@ public class ContactHelper extends BaseHelper {
     public void create(ContactData contact) {
         initContactCreation();
         fillContactForm(contact, true);
+        contactCache = null;
         submitContactCreation();
     }
 
     public void delete(ContactData contact) {
         selectContact(contact.getId());
         deleteSelectedContact();
+        contactCache = null;
         submitContactDeletion();
     }
     public void edit(ContactData contact) {
         initContactEdit(contact.getId());
         fillContactForm(contact, false);
+        contactCache = null;
         submitContactEdit();
     }
 
