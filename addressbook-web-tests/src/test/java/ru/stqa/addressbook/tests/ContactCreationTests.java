@@ -25,4 +25,20 @@ public class ContactCreationTests extends TestBase {
 
     }
 
+    @Test
+    public void testBadContactCreation() throws Exception {
+        app.goTo().homePage();
+        Contacts before = app.contact().all();
+        ContactData contact = new ContactData()
+                .withFirstName("william'")
+                .withLastName("Burroughs")
+                .withGroup("name");
+        app.contact().create(contact);
+        app.goTo().homePage();
+        assertThat(app.contact().count(), equalTo(before.size()));
+        Contacts after = app.contact().all();
+        assertThat(after, equalTo(before));
+
+    }
+
 }
