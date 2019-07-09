@@ -10,6 +10,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
+
 public class ContactEditTests extends TestBase {
 
     @BeforeMethod
@@ -32,12 +36,12 @@ public class ContactEditTests extends TestBase {
         Contacts before = app.contact().all();
         ContactData editedContact = before.iterator().next();
         ContactData contact = new ContactData()
-                .withId(editedContact.getId()).withFirstName("billy").withLastName("b");
+                        .withId(editedContact.getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
         app.contact().edit(contact);
         app.goTo().homePage();
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size()));
-        assertThat(after, equalTo(before.withAdded(editedContact, contact)));
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(editedContact).withAdded(contact)));
     }
 
 }

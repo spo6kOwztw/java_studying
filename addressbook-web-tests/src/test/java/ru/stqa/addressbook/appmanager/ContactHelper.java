@@ -46,12 +46,13 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void submitContactDeletion() {
+
         wd.switchTo().alert().accept();
         wd.findElement(By.cssSelector("div.msgbox"));
     }
 
-    public void initContactEdit() {
-        click(By.xpath("//img[@title='Edit']"));
+    public void initContactEdit(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
     }
 
     public void submitContactEdit() {
@@ -99,8 +100,7 @@ public class ContactHelper extends BaseHelper {
         submitContactDeletion();
     }
     public void edit(ContactData contact) {
-        selectContact(contact.getId());
-        initContactEdit();
+        initContactEdit(contact.getId());
         fillContactForm(contact, false);
         submitContactEdit();
     }

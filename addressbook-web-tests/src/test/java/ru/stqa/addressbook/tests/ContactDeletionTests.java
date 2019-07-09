@@ -8,19 +8,21 @@ import ru.stqa.addressbook.model.Contacts;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
+
 
 public class ContactDeletionTests extends TestBase{
     
     @BeforeMethod
+
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (app.contact().all().size() == 0) {
             app.contact().createContact(new ContactData()
                     .withFirstName("william")
                     .withLastName("Burroughs")
-                    .withMiddleName("X")
-                    .withMobilePhone("0")
-                    .withEmail("0")
                     .withGroup("name"));
             app.goTo().homePage();
         }
@@ -31,8 +33,9 @@ public class ContactDeletionTests extends TestBase{
         Contacts before = app.contact().all();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
+        app.goTo().homePage();
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() - 1));
+        assertEquals(after.size(), before.size() - 1);
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 

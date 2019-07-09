@@ -14,6 +14,7 @@ public class TestBase {
     protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
     protected WebDriver wd;
 
+
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
         app.init();

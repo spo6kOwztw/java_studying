@@ -9,7 +9,6 @@ public class ContactData {
     private String lastName;
     private String mobilePhone;
     private String email;
-
     private String group;
 
     public int getId() {
@@ -77,6 +76,14 @@ public class ContactData {
     }
 
     @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -90,11 +97,4 @@ public class ContactData {
         return Objects.hash(firstName, lastName);
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 }
