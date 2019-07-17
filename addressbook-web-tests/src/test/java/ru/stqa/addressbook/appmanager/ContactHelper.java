@@ -25,6 +25,13 @@ public class ContactHelper extends BaseHelper {
     public void fillContactForm(ContactData contact, boolean creation) {
         type(By.name("firstname"), contact.getFirstName());
         type(By.name("lastname"), contact.getLastName());
+        type(By.name("address"), contact.getAddress());
+        type(By.name("home"), contact.getHomePhone());
+        type(By.name("mobile"), contact.getMobilePhone());
+        type(By.name("work"), contact.getWorkPhone());
+        type(By.name("email"), contact.getEmail1());
+        type(By.name("email2"), contact.getEmail2());
+        type(By.name("email3"), contact.getEmail3());
 
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.getGroup());
@@ -32,6 +39,7 @@ public class ContactHelper extends BaseHelper {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
+
 
     public void initContactCreation() {
         click(By.linkText("add new"));
@@ -81,14 +89,23 @@ public class ContactHelper extends BaseHelper {
             return new Contacts(contactCache);
         }
         Contacts contacts = new Contacts();
-        List<WebElement> elements = wd.findElements(By.cssSelector("tbody tr[name='entry']"));
-        for (WebElement element : elements) {
-            List<WebElement> attributes = element.findElements(By.tagName("td"));
-            String lastname = attributes.get(1).getText();
-            String firstname = attributes.get(2).getText();
-            //String middlename = attributes.get(3).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname));
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = cells.get(1).getText();
+            String firstname = cells.get(2).getText();
+            String allPhones = cells.get(5).getText();
+            String allEmails = cells.get(4).getText();
+            String address = cells.get(3).getText();
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstName(firstname)
+                    .withLastName(lastname)
+                    .withAllPhones(allPhones)
+                    .withAllEmails(allEmails)
+                    .withAddress(address));
+
         }
         return contacts;
     }
@@ -106,6 +123,7 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
         submitContactDeletion();
     }
+
     public void edit(ContactData contact) {
         initContactEdit(contact.getId());
         fillContactForm(contact, false);
@@ -121,6 +139,10 @@ public class ContactHelper extends BaseHelper {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String email1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
         wd.navigate().back();
         return new ContactData()
                 .withId(contact.getId())
@@ -128,7 +150,11 @@ public class ContactHelper extends BaseHelper {
                 .withLastName(lastname)
                 .withMobilePhone(mobile)
                 .withHomePhone(home)
-                .withWorkPhone(work);
+                .withWorkPhone(work)
+                .withEmail1(email1)
+                .withEmail2(email2)
+                .withEmail3(email3)
+                .withAddress(address);
     }
 
     private void initContactEditById(int id) {

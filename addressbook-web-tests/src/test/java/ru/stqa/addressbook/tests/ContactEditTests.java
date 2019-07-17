@@ -1,6 +1,5 @@
 package ru.stqa.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
@@ -8,11 +7,6 @@ import ru.stqa.addressbook.model.Contacts;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactEditTests extends TestBase {
 
@@ -25,7 +19,7 @@ public class ContactEditTests extends TestBase {
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
-                    .withEmail("0")
+                    .withEmail1("0")
                     .withGroup("name"));
             app.goTo().homePage();
         }
@@ -36,7 +30,7 @@ public class ContactEditTests extends TestBase {
         Contacts before = app.contact().all();
         ContactData editedContact = before.iterator().next();
         ContactData contact = new ContactData()
-                        .withId(editedContact.getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
+                .withId(editedContact.getId()).withFirstName("billy").withLastName("b").withMiddleName("s");
         app.contact().edit(contact);
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size()));
