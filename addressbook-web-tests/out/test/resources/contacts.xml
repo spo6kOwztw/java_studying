@@ -1,0 +1,22 @@
+<list>
+  <ru.stqa.addressbook.model.ContactData>
+    <firstName>Bill 0</firstName>
+    <middleName>Seward 0</middleName>
+    <lastName>Burroughs 0</lastName>
+    <mobilePhone>999 0</mobilePhone>
+    <homePhone>343333 0</homePhone>
+    <workPhone>342222 0</workPhone>
+    <group>[none]</group>
+    <address>in the middle of nowhere 0</address>
+  </ru.stqa.addressbook.model.ContactData>
+  <ru.stqa.addressbook.model.ContactData>
+    <firstName>Bill 1</firstName>
+    <middleName>Seward 1</middleName>
+    <lastName>Burroughs 1</lastName>
+    <mobilePhone>999 1</mobilePhone>
+    <homePhone>343333 1</homePhone>
+    <workPhone>342222 1</workPhone>
+    <group>[none]</group>
+    <address>in the middle of nowhere 1</address>
+  </ru.stqa.addressbook.model.ContactData>
+</list>

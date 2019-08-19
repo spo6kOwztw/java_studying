@@ -1,9 +1,12 @@
 package ru.stqa.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
     private String firstName;
     private String middleName;
@@ -27,6 +30,7 @@ public class ContactData {
         this.photo = photo;
         return this;
     }
+
 
     private File photo;
 
