@@ -52,7 +52,8 @@ public class ContactDataGenerator {
                     .withMobilePhone(String.format("999 %s", i))
                     .withHomePhone(String.format("343333 %s", i))
                     .withWorkPhone(String.format("342222 %s", i))
-                    .withAddress(String.format("in the middle of nowhere %s",i)));
+                    .withAddress(String.format("in the middle of nowhere %s",i))
+                    .withGroup("[none]"));
         }
         return contacts;
     }
