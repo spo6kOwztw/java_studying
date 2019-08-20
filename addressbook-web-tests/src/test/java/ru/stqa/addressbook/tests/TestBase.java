@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.tests;
 
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -15,6 +16,7 @@ import ru.stqa.addressbook.appmanager.ApplicationManager;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 
 public class TestBase {
@@ -65,8 +67,8 @@ public class TestBase {
     }
 
     @BeforeMethod
-    public void logTestStart(Method m) {
-        logger.info("Start test " + m.getName());
+    public void logTestStart(Method m, Object[] p) {
+        logger.info("Start test " + m.getName() + " with parameters" + Arrays.asList(p));
     }
 
     @AfterMethod(alwaysRun = true)
