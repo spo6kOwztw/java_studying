@@ -9,7 +9,6 @@ import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
 
 import java.io.*;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
