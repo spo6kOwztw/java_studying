@@ -6,7 +6,6 @@ import com.beust.jcommander.ParameterException;
 import com.thoughtworks.xstream.XStream;
 import ru.stqa.addressbook.model.ContactData;
 
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class ContactDataGenerator {
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -42,7 +41,8 @@ public class ContactDataGenerator {
         System.out.println(new File(".").getAbsolutePath());
         Writer writer = new FileWriter(file);
         for (ContactData contact : contacts) {
-            writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n", contact.getFirstName(), contact.getLastName(), contact.getMiddleName(), contact.getMobilePhone(), contact.getHomePhone(), contact.getWorkPhone(), contact.getEmail1(), contact.getAddress()));        }
+            writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n", contact.getFirstName(), contact.getLastName(), contact.getMiddleName(), contact.getMobilePhone(), contact.getHomePhone(), contact.getWorkPhone(), contact.getEmail1(), contact.getAddress()));
+        }
         writer.close();
 
 
@@ -58,7 +58,7 @@ public class ContactDataGenerator {
                     .withMobilePhone(String.format("999 %s", i))
                     .withHomePhone(String.format("343333 %s", i))
                     .withWorkPhone(String.format("342222 %s", i))
-                    .withAddress(String.format("in the middle of nowhere %s",i))
+                    .withAddress(String.format("in the middle of nowhere %s", i))
                     .withGroup("[none]"));
         }
         return contacts;
@@ -80,9 +80,9 @@ public class ContactDataGenerator {
         XStream xstream = new XStream();
         xstream.processAnnotations(ContactData.class);
         String xml = xstream.toXML(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
 }
