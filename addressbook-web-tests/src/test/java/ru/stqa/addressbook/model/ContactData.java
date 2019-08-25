@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -12,36 +13,49 @@ public class ContactData {
     @Id
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+    @Expose
     @Column(name = "firstname")
     private String firstName;
+    @Expose
     @Column(name = "middlename")
     private String middleName;
+    @Expose
     @Column(name = "lastname")
     private String lastName;
+    @Expose
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
+    @Expose
     @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
+    @Expose
     @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
+    @Expose
     @Transient
     private String allPhones;
+    @Expose
     @Column(name = "email")
     @Type(type = "text")
     private String email1;
+    @Expose
     @Column(name = "email2")
     @Type(type = "text")
     private String email2;
+    @Expose
     @Column(name = "email3")
     @Type(type = "text")
     private String email3;
+    @Expose
     @Transient
     private String allEmails;
+    @Expose
     @Transient
     private String group;
+    @Expose
     @Column(name = "address")
     @Type(type = "text")
     private String address;
