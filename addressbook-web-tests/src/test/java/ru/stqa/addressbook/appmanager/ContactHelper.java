@@ -145,7 +145,7 @@ public class ContactHelper extends BaseHelper {
     public void initContactRemovingFromGroup() {
         click(By.name("remove"));
     }
-    public void removeContactFromGroup(ContactData contact) {
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
         selectContactById(contact.getId());
         initContactRemovingFromGroup();
     }
@@ -158,7 +158,7 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.xpath(".//select[@name='to_group']/option[@value='"+ id +"']")).click();
     }
 
-        public ContactData infoFormEditForm (ContactData contact){
+            public ContactData infoFormEditForm (ContactData contact){
             initContactEditById(contact.getId());
             String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
             String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
