@@ -18,8 +18,8 @@ public class ContactDeletionTests extends TestBase {
         if (app.contact().all().size() == 0) {
             app.contact().createContact(new ContactData()
                     .withFirstName("william")
-                    .withLastName("Burroughs")
-                    .withGroup("name"));
+                    .withLastName("Burroughs"));
+                    //.withGroup("name"));
             app.goTo().homePage();
         }
     }

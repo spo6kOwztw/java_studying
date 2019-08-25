@@ -68,8 +68,8 @@ public class ContactCreationTests extends TestBase {
             Contacts before = app.db().contacts();
             ContactData contact = new ContactData()
                     .withFirstName("william'")
-                    .withLastName("Burroughs")
-                    .withGroup("name");
+                    .withLastName("Burroughs");
+                    //.withGroup("name");
             app.contact().create(contact);
             app.goTo().homePage();
             assertThat(app.contact().count(), equalTo(before.size()));

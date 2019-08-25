@@ -20,7 +20,7 @@ public class ContactPhoneTests extends TestBase {
             app.contact().createContact(new ContactData()
                     .withFirstName("william")
                     .withLastName("Burroughs")
-                    .withGroup("name")
+                    //.withGroup("name")
                     .withHomePhone("111")
                     .withMobilePhone("222")
                     .withWorkPhone("333")

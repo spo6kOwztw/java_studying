@@ -19,8 +19,8 @@ public class ContactEditTests extends TestBase {
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
-                    .withEmail1("0")
-                    .withGroup("name"));
+                    .withEmail1("0"));
+                    //.withGroup("name"));
             app.goTo().homePage();
         }
     }
