@@ -6,8 +6,8 @@
     "mobilePhone": "999 0",
     "homePhone": "343333 0",
     "workPhone": "342222 0",
-    "group": "[none]",
-    "address": "in the middle of nowhere 0"
+    "address": "in the middle of nowhere 0",
+    "groups": []
   },
   {
     "firstName": "Bill 1",
@@ -16,7 +16,7 @@
     "mobilePhone": "999 1",
     "homePhone": "343333 1",
     "workPhone": "342222 1",
-    "group": "[none]",
-    "address": "in the middle of nowhere 1"
+    "address": "in the middle of nowhere 1",
+    "groups": []
   }
 ]
