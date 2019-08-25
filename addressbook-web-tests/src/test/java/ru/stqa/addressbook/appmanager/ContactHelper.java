@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -35,12 +36,14 @@ public class ContactHelper extends BaseHelper {
         //attach(By.name("photo"), contact.getPhoto());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).getOptions().get(1).click();
+            if (contact.groups().size() > 0) {
+                Assert.assertTrue(contact.groups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contact.groups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
-
 
     public void initContactCreation() {
         click(By.linkText("add new"));
@@ -76,7 +79,6 @@ public class ContactHelper extends BaseHelper {
         initContactCreation();
         fillContactForm(contact, true);
         submitContactCreation();
-
     }
 
     public int count() {
@@ -132,37 +134,60 @@ public class ContactHelper extends BaseHelper {
         submitContactEdit();
     }
 
-
-    public ContactData infoFormEditForm(ContactData contact) {
-        initContactEditById(contact.getId());
-        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
-        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
-        String home = wd.findElement(By.name("home")).getAttribute("value");
-        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
-        String work = wd.findElement(By.name("work")).getAttribute("value");
-        String email1 = wd.findElement(By.name("email")).getAttribute("value");
-        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
-        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
-        String address = wd.findElement(By.name("address")).getAttribute("value");
-        wd.navigate().back();
-        return new ContactData()
-                .withId(contact.getId())
-                .withFirstName(firstname)
-                .withLastName(lastname)
-                .withMobilePhone(mobile)
-                .withHomePhone(home)
-                .withWorkPhone(work)
-                .withEmail1(email1)
-                .withEmail2(email2)
-                .withEmail3(email3)
-                .withAddress(address);
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    private void initContactEditById(int id) {
-        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value = '%s']", id)));
-        WebElement row = checkbox.findElement(By.xpath("./../.."));
-        List<WebElement> cells = row.findElements(By.tagName("td"));
-        cells.get(7).findElement(By.tagName("a")).click();
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        click(By.name("add"));
+    }
+
+    public void initContactRemovingFromGroup() {
+        click(By.name("remove"));
+    }
+    public void removeContactFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        initContactRemovingFromGroup();
+    }
+    public void goTo(GroupData group) {
 
     }
-}
+
+    public void selectGroup(int id) {
+        wd.findElement(By.name("to_group")).click();
+        wd.findElement(By.xpath(".//select[@name='to_group']/option[@value='"+ id +"']")).click();
+    }
+
+        public ContactData infoFormEditForm (ContactData contact){
+            initContactEditById(contact.getId());
+            String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+            String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+            String home = wd.findElement(By.name("home")).getAttribute("value");
+            String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+            String work = wd.findElement(By.name("work")).getAttribute("value");
+            String email1 = wd.findElement(By.name("email")).getAttribute("value");
+            String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+            String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+            String address = wd.findElement(By.name("address")).getAttribute("value");
+            wd.navigate().back();
+            return new ContactData()
+                    .withId(contact.getId())
+                    .withFirstName(firstname)
+                    .withLastName(lastname)
+                    .withMobilePhone(mobile)
+                    .withHomePhone(home)
+                    .withWorkPhone(work)
+                    .withEmail1(email1)
+                    .withEmail2(email2)
+                    .withEmail3(email3)
+                    .withAddress(address);
+        }
+
+        private void initContactEditById (int id){
+            WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value = '%s']", id)));
+            WebElement row = checkbox.findElement(By.xpath("./../.."));
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            cells.get(7).findElement(By.tagName("a")).click();
+
+        }
+    }

@@ -23,7 +23,6 @@ public class NavigationHelper extends BaseHelper {
                 return;
             }
            click(By.linkText("home"));
-
         }
 
 }

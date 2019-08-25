@@ -180,7 +180,12 @@ public class ContactData {
 
     }
 
-    public Groups getGroups() {
+    public ContactData withGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
+    public Groups groups() {
         return new Groups(groups);
     }
 
