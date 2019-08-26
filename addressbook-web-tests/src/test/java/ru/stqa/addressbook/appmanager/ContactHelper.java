@@ -11,9 +11,10 @@ import ru.stqa.addressbook.model.GroupData;
 
 import java.util.List;
 
-
 public class ContactHelper extends BaseHelper {
 
+
+    private Contacts contactCache = null;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -85,8 +86,6 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    private Contacts contactCache = null;
-
     public Contacts all() {
         if (contactCache != null) {
             return new Contacts(contactCache);
@@ -142,16 +141,17 @@ public class ContactHelper extends BaseHelper {
         click(By.name("add"));
     }
 
-    public void initContactRemovingFromGroup() {
-        click(By.name("remove"));
-    }
-    public void removeContactFromGroup(ContactData contact, GroupData group) {
+    public void removeContactFromGroup(ContactData contact, GroupData removedGroup) {
+        selectGroupInFilter(removedGroup);
         selectContactById(contact.getId());
-        initContactRemovingFromGroup();
+        wd.findElement(By.name("remove"));
     }
-    public void goTo(GroupData group) {
 
+    public void selectGroupInFilter(GroupData group) {
+        wd.findElement(By.name("group")).click();
+        wd.findElement(By.xpath(".//select[@name='group']/option[@value='"+ group.getId() +"']")).click();
     }
+
 
     public void selectGroup(int id) {
         wd.findElement(By.name("to_group")).click();
@@ -190,4 +190,5 @@ public class ContactHelper extends BaseHelper {
             cells.get(7).findElement(By.tagName("a")).click();
 
         }
-    }
+
+}

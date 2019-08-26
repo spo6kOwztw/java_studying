@@ -7,9 +7,6 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
-import java.security.acl.Group;
-import java.util.Objects;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -41,25 +38,29 @@ public class ContactRemovingFromGroupTest extends TestBase{
     @Test
     public void testRemoveContactFromGroup() {
         Contacts contacts = app.db().contacts();
-        ContactData removedContact = contacts.iterator().next();
-        int contactId = removedContact.getId();
-        Groups contactGroupsBefore = removedContact.groups();
-        if (contactGroupsBefore.size() == 0) {
-            Groups groups = app.db().groups();
-            GroupData group = groups.stream().iterator().next();
+        Groups groups = app.db().groups();
+        ContactData contact = contacts.iterator().next();
+        GroupData group = groups.stream().iterator().next();
+        int contactId = contact.getId();
+        Groups contactGroupsBefore = contact.groups();
+
+        if (contact.groups().size() == 0) {
+            app.contact().selectContactById(contactId);
+            app.contact().addContactToGroup(contact, group);
             app.goTo().homePage();
-            app.contact().addContactToGroup(removedContact, group);
-            app.db().contacts();
+            Contacts after = app.db().contacts();
+            contact = after.iterator().next().withId(contactId);
+            contactGroupsBefore = contact.groups();
+
         }
 
-        contactGroupsBefore = removedContact.groups();
-        GroupData group = contactGroupsBefore.iterator().next();
+        GroupData removedGroup = contactGroupsBefore.iterator().next();
+
+        app.contact().removeContactFromGroup(contact,removedGroup);
         app.goTo().homePage();
-        app.contact().removeContactFromGroup(removedContact, group);
 
         Contacts after = app.db().contacts();
-        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
-        Groups newContactGroups = updatedContact.groups();
-        assertThat(newContactGroups, equalTo(contactGroupsBefore.without(group)));
+        ContactData newContactGroups = after.iterator().next().withId(contact.getId());
+        assertThat(newContactGroups, equalTo(contact.groups().without(removedGroup)));
     }
 }
