@@ -20,12 +20,12 @@ public class TestBase {
     @BeforeSuite(alwaysRun = true)
     public void setUp() throws Exception {
         app.init();
-        app.ftp().upload(new File ("src/test/resources/config_inc.php"), "congig_inc.php", "congig_inc.bak");
+        app.ftp().upload(new File ("src/test/resources/config_inc.php"), "config_inc.php", "config_inc.bak");
     }
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() throws IOException {
-        app.ftp().restore("congig_inc.bak", "congig_inc.php");
+        app.ftp().restore("config_inc.bak", "config_inc.php");
         app.stop();
     }
 }
