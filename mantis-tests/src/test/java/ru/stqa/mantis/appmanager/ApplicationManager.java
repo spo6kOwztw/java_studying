@@ -19,6 +19,7 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -27,7 +28,6 @@ public class ApplicationManager {
 
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
-        System.out.println(new File(".").getAbsolutePath());
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
 
@@ -35,7 +35,6 @@ public class ApplicationManager {
 
     public void stop() {
         if (wd != null) {
-
         wd.quit();
     }
     }
@@ -61,6 +60,7 @@ public class ApplicationManager {
         }
         return ftp;
     }
+
         public WebDriver getDriver () {
 
             if (wd == null) {
@@ -83,5 +83,12 @@ public class ApplicationManager {
             mailHelper = new MailHelper(this);
         }
         return mailHelper;
+        }
+
+        public JamesHelper james() {
+            if (jamesHelper == null) {
+                jamesHelper = new JamesHelper(this);
+            }
+            return jamesHelper;
         }
     }
