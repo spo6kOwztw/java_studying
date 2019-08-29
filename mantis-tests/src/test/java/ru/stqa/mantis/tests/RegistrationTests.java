@@ -9,6 +9,6 @@ public class RegistrationTests {
     @Test
 
     public void testRegistration() {
-        app.registration().start("user1", "user@localhost.localdomain");
+        app.registration().start("user1", "user%@localhost.localdomain");
     }
 }

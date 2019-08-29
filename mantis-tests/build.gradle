@@ -5,10 +5,12 @@ repositories {
 }
 
 dependencies {
-    compile 'org.testng:testng:6.9.10'
-    compile("org.seleniumhq.selenium:selenium-java:3.141.59")
+    implementation 'org.testng:testng:6.9.10'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     implementation 'org.apache.httpcomponents:httpclient:4.5.9'
+    implementation 'commons-net:commons-net:3.6'
+
 
 }
 
