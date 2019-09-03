@@ -7,33 +7,35 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
+<<<<<<< Updated upstream
+=======
+import java.util.Objects;
+
+>>>>>>> Stashed changes
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactRemovingFromGroupTest extends TestBase{
 
     @BeforeMethod
+    //   1. Для всех тестов: проверки предусловий наличия групп и контактов.
+
     public void ensurePreconditions() {
 
-        if (app.db().groups().size() == 0) {
-            app.goTo().groupPage();
-            app.group().create(new GroupData()
-                    .withName("new1"));
-        }
-        Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
+            if (app.db().groups().size() == 0) {
+                app.goTo().groupPage();
+                app.group().create(new GroupData().withName("name"));
+                app.goTo().homePage();
+            }
+            Groups groups = app.db().groups();
             app.goTo().homePage();
-            app.contact().createContact(new ContactData()
-                    .withFirstName("william")
-                    .withLastName("Burroughs")
-                    .withMiddleName("X")
-                    .withMobilePhone("0")
-                    .withEmail1("0")
-                    .withGroup(groups.iterator().next()))
-            ;
+            app.contact().create(new ContactData().withFirstName("Bill").withLastName("B").withGroup(groups.iterator().next()));
         }
-        app.goTo().homePage();
     }
+
+    // 3.1 Для второго теста надо проверять предусловие, что существуют контакты, которые можно удалить из группы
+    // 3.2 (и добавлять контакт в группу если предусловие не выполняется). (?)
 
     @Test
     public void testRemoveContactFromGroup() {
@@ -59,8 +61,16 @@ public class ContactRemovingFromGroupTest extends TestBase{
         app.contact().removeContactFromGroup(contact,removedGroup);
         app.goTo().homePage();
 
+        //5. Перед сравнением списков необходимо получать актуальную информацию о группах этого контакта из базы данных.
         Contacts after = app.db().contacts();
+<<<<<<< Updated upstream
         ContactData newContactGroups = after.iterator().next().withId(contact.getId());
         assertThat(newContactGroups, equalTo(contact.groups().without(removedGroup)));
+=======
+
+        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
+        Groups newContactGroups = updatedContact.groups();
+        assertThat(newContactGroups, equalTo(contactGroupsBefore.without(group)));
+>>>>>>> Stashed changes
     }
 }

@@ -15,14 +15,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactAddToGroupTest extends TestBase {
 
     @BeforeMethod
+    //   1. Для всех тестов: проверки предусловий наличия групп и контактов.
     public void ensurePreconditions() {
+
 
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData()
                     .withName("new1"));
         }
-        Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().createContact(new ContactData()
@@ -30,21 +31,21 @@ public class ContactAddToGroupTest extends TestBase {
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
-                    .withEmail1("0")
-                    .withGroup(groups.iterator().next()))
-                    ;
+                    .withEmail1("0"));
                     }
         app.goTo().homePage();
     }
+
+    // 2. Для первого теста надо проверять предусловие, что существуют контакты, которые можно добавить в группу (и создавать новую группу, если предусловие не выполняется).
     @Test
     public void testContactAddToGroup() {
         Contacts contacts = app.db().contacts();
         Groups groups = app.db().groups();
         ContactData contact = contacts.iterator().next();
-        int contactId = contact.getId();
-        Groups contactGroupsBefore = contact.groups();
-        while (groups.size() == 0){
-            contact = contacts.iterator().next();
+            int contactId = contact.getId();
+            Groups contactGroupsBefore = contact.groups();
+            while (groups.size() == 0){
+                contact = contacts.iterator().next();
         }
         GroupData group = groups.stream().iterator().next();
         app.goTo().homePage();
