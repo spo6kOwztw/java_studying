@@ -7,14 +7,6 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
-<<<<<<< Updated upstream
-=======
-import java.util.Objects;
-
->>>>>>> Stashed changes
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 public class ContactRemovingFromGroupTest extends TestBase{
 
     @BeforeMethod
@@ -61,16 +53,7 @@ public class ContactRemovingFromGroupTest extends TestBase{
         app.contact().removeContactFromGroup(contact,removedGroup);
         app.goTo().homePage();
 
-        //5. Перед сравнением списков необходимо получать актуальную информацию о группах этого контакта из базы данных.
-        Contacts after = app.db().contacts();
-<<<<<<< Updated upstream
-        ContactData newContactGroups = after.iterator().next().withId(contact.getId());
-        assertThat(newContactGroups, equalTo(contact.groups().without(removedGroup)));
-=======
+        //5. Перед сравнением списков необходимо получать актуальную информацию о группах этого контакта из базы данных.???
 
-        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
-        Groups newContactGroups = updatedContact.groups();
-        assertThat(newContactGroups, equalTo(contactGroupsBefore.without(group)));
->>>>>>> Stashed changes
     }
 }
