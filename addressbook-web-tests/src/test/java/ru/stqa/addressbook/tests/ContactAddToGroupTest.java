@@ -7,8 +7,6 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
-import java.util.Objects;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -18,6 +16,7 @@ public class ContactAddToGroupTest extends TestBase {
     //   1. Для всех тестов: проверки предусловий наличия групп и контактов.
     public void ensurePreconditions() {
 
+        app.goTo().homePage();
 
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
@@ -36,24 +35,18 @@ public class ContactAddToGroupTest extends TestBase {
         app.goTo().homePage();
     }
 
-    // 2. Для первого теста надо проверять предусловие, что существуют контакты, которые можно добавить в группу (и создавать новую группу, если предусловие не выполняется).
     @Test
     public void testContactAddToGroup() {
-        Contacts contacts = app.db().contacts();
-        Groups groups = app.db().groups();
-        ContactData contact = contacts.iterator().next();
-            int contactId = contact.getId();
-            Groups contactGroupsBefore = contact.groups();
-            while (groups.size() == 0){
-                contact = contacts.iterator().next();
-        }
-        GroupData group = groups.stream().iterator().next();
         app.goTo().homePage();
-        app.contact().addContactToGroup(contact, group);
-        Contacts after = app.db().contacts();
-        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
-        Groups newContactGroups = updatedContact.groups();
-        assertThat(newContactGroups, equalTo(contactGroupsBefore.withAdded(group)));
+        Contacts contactBefore = app.db().contacts();
+        ContactData addedContact = contactBefore.iterator().next();
+        app.contact().addContactToGroup(addedContact);
+
+        Contacts contactAfter =
+        Groups groupsAfter =
+
+        assertThat(groupsAfter, equalTo(groupsBefore.withAdded());
+
     }
 
 }

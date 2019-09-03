@@ -134,16 +134,19 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContactById(int id) {
+
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void addContactToGroup(ContactData contact, GroupData group) {
+    public void addContactToGroup(ContactData contact) {
+        //? нужен выбор конкретной группы
+        selectContactById(contact.getId());
         click(By.name("add"));
     }
 
-    public void removeContactFromGroup(ContactData contact, GroupData removedGroup) {
+    public void removeContactFromGroup(ContactData removedContact, GroupData removedGroup) {
         selectGroupInFilter(removedGroup);
-        selectContactById(contact.getId());
+        selectContactById(removedContact.getId());
         wd.findElement(By.name("remove"));
     }
 
@@ -157,6 +160,7 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.name("to_group")).click();
         wd.findElement(By.xpath(".//select[@name='to_group']/option[@value='"+ id +"']")).click();
     }
+
 
             public ContactData infoFormEditForm (ContactData contact){
             initContactEditById(contact.getId());
