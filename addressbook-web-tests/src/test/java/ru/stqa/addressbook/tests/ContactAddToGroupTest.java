@@ -20,7 +20,10 @@ public class ContactAddToGroupTest extends TestBase {
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             app.group().create(new GroupData()
-                    .withName("new1"));
+                    .withName("new1")
+            .withHeader("test")
+            .withFooter("test")
+            );
         }
         Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
@@ -38,21 +41,24 @@ public class ContactAddToGroupTest extends TestBase {
     }
     @Test
     public void testContactAddToGroup() {
-        Contacts contacts = app.db().contacts();
         Groups groups = app.db().groups();
+        Contacts contacts = app.db().contacts();
         ContactData contact = contacts.iterator().next();
         int contactId = contact.getId();
         Groups contactGroupsBefore = contact.groups();
-        while (groups.size() == 0){
+        groups.removeAll(contactGroupsBefore);
+        while (groups.size() == 0) {
             contact = contacts.iterator().next();
         }
-        GroupData group = groups.stream().iterator().next();
+        GroupData groupForAdd = groups.stream().iterator().next();
         app.goTo().homePage();
-        app.contact().addContactToGroup(contact, group);
+        app.contact().addContactToGroup(groupForAdd, contact);
+
         Contacts after = app.db().contacts();
-        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
-        Groups newContactGroups = updatedContact.groups();
-        assertThat(newContactGroups, equalTo(contactGroupsBefore.withAdded(group)));
+        ContactData contactAfter = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
+        Groups contactGroupsAfter = contactAfter.groups();
+        assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withAdded(groupForAdd)));
+        verifyContactListInUI();
     }
 
 }

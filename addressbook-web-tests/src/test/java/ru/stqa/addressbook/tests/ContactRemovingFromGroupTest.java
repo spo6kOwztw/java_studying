@@ -58,8 +58,10 @@ public class ContactRemovingFromGroupTest extends TestBase{
         app.contact().removeContactFromGroup(removedContact, group);
 
         Contacts after = app.db().contacts();
-        ContactData updatedContact = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
-        Groups newContactGroups = updatedContact.groups();
-        assertThat(newContactGroups, equalTo(contactGroupsBefore.without(group)));
+        ContactData contactAfter = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
+        Groups contactGroupsAfter = contactAfter.groups();
+        assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.without(group)));
+        verifyContactListInUI();
+
     }
 }

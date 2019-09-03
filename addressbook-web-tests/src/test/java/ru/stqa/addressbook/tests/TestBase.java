@@ -14,6 +14,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.addressbook.appmanager.ApplicationManager;
+import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
@@ -93,6 +94,13 @@ public class TestBase {
                     .collect(Collectors.toSet())));
         }
 
+    }
+    public void verifyContactListInUI() {
+        if(Boolean.getBoolean("verifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contact().set();
+            assertThat(uiContacts, equalTo(dbContacts));
+        }
     }
 
 }
