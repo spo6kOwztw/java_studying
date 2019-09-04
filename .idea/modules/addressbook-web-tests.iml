@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../addressbook-web-tests/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../addressbook-web-tests/out" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

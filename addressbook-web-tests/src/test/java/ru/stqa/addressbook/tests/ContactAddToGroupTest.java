@@ -30,13 +30,19 @@ public class ContactAddToGroupTest extends TestBase {
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
+<<<<<<< Updated upstream
                     .withEmail1("0"));
+=======
+                    .withEmail1("0")
+                    .withGroup(groups.iterator().next()));
+>>>>>>> Stashed changes
                     }
         app.goTo().homePage();
     }
 
     @Test
     public void testContactAddToGroup() {
+<<<<<<< Updated upstream
         app.goTo().homePage();
         Contacts contactBefore = app.db().contacts();
         ContactData addedContact = contactBefore.iterator().next();
@@ -46,6 +52,21 @@ public class ContactAddToGroupTest extends TestBase {
         Groups groupsAfter =
 
         assertThat(groupsAfter, equalTo(groupsBefore.withAdded());
+=======
+        Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+        ContactData contact = contacts.iterator().next();
+        int contactId = contact.getId();
+        Groups contactGroupsBefore = contact.groups();
+        groups.removeAll(contactGroupsBefore);
+        if (groups.size() == 0) {
+            contact = contacts.iterator().next();
+        }
+        app.goTo().groupPage();
+        GroupData groupForAdd = groups.stream().iterator().next();
+        app.goTo().homePage();
+        app.contact().addContactToGroup (contact, groupForAdd);
+>>>>>>> Stashed changes
 
     }
 

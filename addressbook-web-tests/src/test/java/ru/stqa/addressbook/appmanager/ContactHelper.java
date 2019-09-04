@@ -138,6 +138,7 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
+<<<<<<< Updated upstream
     public void addContactToGroup(ContactData contact) {
         //? нужен выбор конкретной группы
         selectContactById(contact.getId());
@@ -148,6 +149,21 @@ public class ContactHelper extends BaseHelper {
         selectGroupInFilter(removedGroup);
         selectContactById(removedContact.getId());
         wd.findElement(By.name("remove"));
+=======
+    public void addContactToGroup(ContactData contact, GroupData groupForAdd) {
+        selectContactById(contact.getId());
+        selectGroup(groupForAdd);
+        click(By.name("add"));
+    }
+
+    public void initContactRemovingFromGroup() {
+        click(By.name("remove"));
+    }
+    public void removeContactFromGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        filterByGroup(group);
+        initContactRemovingFromGroup();
+>>>>>>> Stashed changes
     }
 
     public void selectGroupInFilter(GroupData group) {
@@ -155,12 +171,22 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.xpath(".//select[@name='group']/option[@value='"+ group.getId() +"']")).click();
     }
 
+<<<<<<< Updated upstream
 
     public void selectGroup(int id) {
         wd.findElement(By.name("to_group")).click();
         wd.findElement(By.xpath(".//select[@name='to_group']/option[@value='"+ id +"']")).click();
     }
 
+=======
+    public void selectGroup(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    }
+
+    public void filterByGroup(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+    }
+>>>>>>> Stashed changes
 
             public ContactData infoFormEditForm (ContactData contact){
             initContactEditById(contact.getId());
