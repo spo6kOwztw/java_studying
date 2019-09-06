@@ -7,7 +7,6 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
-import java.security.acl.Group;
 import java.util.Objects;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -48,7 +47,7 @@ public class ContactRemovingFromGroupTest extends TestBase{
             Groups groups = app.db().groups();
             GroupData group = groups.stream().iterator().next();
             app.goTo().homePage();
-            app.contact().addContactToGroup(removedContact, group);
+            app.contact().addContactToGroup(group, removedContact);
             app.db().contacts();
         }
 

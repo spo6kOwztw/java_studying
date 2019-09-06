@@ -1,7 +1,5 @@
 package ru.stqa.addressbook.tests;
 
-import com.sun.corba.se.spi.ior.ObjectKey;
-import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,7 +16,6 @@ import ru.stqa.addressbook.model.Contacts;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
-import java.io.*;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;

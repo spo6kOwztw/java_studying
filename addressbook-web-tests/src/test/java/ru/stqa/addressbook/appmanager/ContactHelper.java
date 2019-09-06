@@ -138,16 +138,18 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void addContactToGroup(GroupData groupForAdd, ContactData contact) {
+    public void addContactToGroup(  GroupData groupForAdd, ContactData contact) {
         selectContactById(contact.getId());
-        selectGroup();
+        selectGroup(groupForAdd);
         click(By.name("add"));
     }
 
     public void initContactRemovingFromGroup() {
         click(By.name("remove"));
     }
+
     public void removeContactFromGroup(ContactData contact, GroupData group) {
+        filterByGroup(group);
         selectContactById(contact.getId());
         initContactRemovingFromGroup();
     }
@@ -155,8 +157,12 @@ public class ContactHelper extends BaseHelper {
 
     }
 
-    public void selectGroup( GroupData group) {
+    public void selectGroup(GroupData group) {
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    }
+
+    public void filterByGroup(GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
     }
 
             public ContactData infoFormEditForm (ContactData contact){

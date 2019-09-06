@@ -22,8 +22,7 @@ public class ContactAddToGroupTest extends TestBase {
             app.group().create(new GroupData()
                     .withName("new1")
             .withHeader("test")
-            .withFooter("test")
-            );
+            .withFooter("test"));
         }
         Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
@@ -34,31 +33,36 @@ public class ContactAddToGroupTest extends TestBase {
                     .withMiddleName("X")
                     .withMobilePhone("0")
                     .withEmail1("0")
-                    .withGroup(groups.iterator().next()))
-                    ;
+                    .withGroup(groups.iterator().next()));
                     }
         app.goTo().homePage();
     }
     @Test
     public void testContactAddToGroup() {
-        Groups groups = app.db().groups();
+
+        app.goTo().homePage();
+
         Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+
         ContactData contact = contacts.iterator().next();
         int contactId = contact.getId();
         Groups contactGroupsBefore = contact.groups();
-        groups.removeAll(contactGroupsBefore);
-        while (groups.size() == 0) {
-            contact = contacts.iterator().next();
-        }
-        GroupData groupForAdd = groups.stream().iterator().next();
+
+        if (groups.size() == 0) { contact = contacts.iterator().next();}
         app.goTo().homePage();
-        app.contact().addContactToGroup(groupForAdd, contact);
+
+        GroupData groupForAdd = groups.iterator().next();
+        app.goTo().homePage();
+
+        app.contact().addContactToGroup (groupForAdd, contact);
 
         Contacts after = app.db().contacts();
         ContactData contactAfter = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
         Groups contactGroupsAfter = contactAfter.groups();
         assertThat(contactGroupsAfter, equalTo(contactGroupsBefore.withAdded(groupForAdd)));
         verifyContactListInUI();
-    }
 
+
+}
 }
