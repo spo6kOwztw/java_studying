@@ -1,7 +1,7 @@
 package ru.stqa.mantis.appmanager;
 
-import ru.stqa.mantis.model.MailMessage;
 import org.apache.commons.net.telnet.TelnetClient;
+import ru.stqa.mantis.model.MailMessage;
 
 import javax.mail.*;
 import java.io.IOException;
@@ -12,15 +12,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class JamesHelper {
-    private ApplicationManager app;
-
     private TelnetClient telnet;
-    private InputStream in;
-    private PrintStream out;
-
     private Session mailSession;
+    private ApplicationManager app;
+    private PrintStream out;
+    private InputStream in;
+    private String mailserver;
     private Store store;
-    private String mailServer;
+
 
     public JamesHelper(ApplicationManager app) {
         this.app = app;
@@ -51,30 +50,34 @@ public class JamesHelper {
     }
 
     private void initTelnetSession() {
-        mailServer = app.getProperty("mailserver.host");
+        mailserver = app.getProperty("mailserver.host");
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminlogin");
         String password = app.getProperty("mailserver.adminpassword");
 
         try {
-            telnet.connect(mailServer, port);
+            telnet.connect(mailserver, port);
             in = telnet.getInputStream();
-            out = new PrintStream( telnet.getOutputStream() );
-
+            out = new PrintStream(telnet.getOutputStream());
         } catch (Exception e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
+        // Don't know why it doesn't allow login at the first attempt
         readUntil("Login id:");
         write("");
         readUntil("Password:");
         write("");
 
+
+        // Second login attempt, must be successful
         readUntil("Login id:");
         write(login);
         readUntil("Password:");
         write(password);
 
+        // Read welcome message
         readUntil("Welcome "+login+". HELP for a list of commands");
     }
 
@@ -99,7 +102,7 @@ public class JamesHelper {
         return null;
     }
 
-    private void write (String value) {
+    private void write(String value) {
         try {
             out.println(value);
             out.flush();
@@ -113,10 +116,6 @@ public class JamesHelper {
         write("quit");
     }
 
-    private void closeFolder(Folder folder) throws MessagingException {
-        folder.close(true);
-        store.close();
-    }
 
     public void drainEmail(String username, String password) throws MessagingException {
         Folder inbox = openInbox(username, password);
@@ -126,9 +125,14 @@ public class JamesHelper {
         closeFolder(inbox);
     }
 
+    private void closeFolder(Folder folder) throws MessagingException {
+        folder.close(true);
+        store.close();
+    }
+
     private Folder openInbox(String username, String password) throws MessagingException {
         store = mailSession.getStore("pop3");
-        store.connect(mailServer, username, password);
+        store.connect(mailserver, username, password);
         Folder folder = store.getDefaultFolder().getFolder("INBOX");
         folder.open(Folder.READ_WRITE);
         return folder;
@@ -147,7 +151,7 @@ public class JamesHelper {
                 e.printStackTrace();
             }
         }
-        throw new Error("No mail");
+        throw new Error("No mail :(");
     }
 
     public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
@@ -168,4 +172,5 @@ public class JamesHelper {
             return null;
         }
     }
+
 }

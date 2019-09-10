@@ -39,6 +39,7 @@ public class ApplicationManager {
     }
     }
 
+
     public HttpSession newSession() {
         return new HttpSession(this);
     }
@@ -46,6 +47,7 @@ public class ApplicationManager {
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
+
     public RegistrationHelper registration() {
         if (registrationHelper == null) {
             registrationHelper = new RegistrationHelper(this);
