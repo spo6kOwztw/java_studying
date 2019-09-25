@@ -22,3 +22,9 @@ sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.EquationT
 sandbox/build/reports/tests/test/css/base-style.css
 sandbox/build/reports/tests/test/js/report.js
 sandbox/build/reports/tests/test/css/style.css
+*.html
+*.html
+*.html
+*.html
+addressbook-web-tests/build/reports/tests/testContacts/classes/ru.stqa.addressbook.tests.ContactDeletionTests.html
+addressbook-web-tests/build/tmp/testGroups/jar_extract_2221034333145342300_tmp
