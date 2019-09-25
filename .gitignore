@@ -14,3 +14,11 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 *.log
+sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.PointTests.html
+sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.PrimesTests.html
+sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.EquationTests.html
+*.xml
+*.html
+sandbox/build/reports/tests/test/css/base-style.css
+sandbox/build/reports/tests/test/js/report.js
+sandbox/build/reports/tests/test/css/style.css
