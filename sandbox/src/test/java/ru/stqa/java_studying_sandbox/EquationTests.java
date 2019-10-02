@@ -34,7 +34,7 @@ public class EquationTests {
     }
     @Test
     public void testConstant() {
-        Equation e = new Equation(0, 0, 1); 
+        Equation e = new Equation(0, 0, 1);
         Assert.assertEquals(e.rootNumber(), 1);
     }
     @Test
