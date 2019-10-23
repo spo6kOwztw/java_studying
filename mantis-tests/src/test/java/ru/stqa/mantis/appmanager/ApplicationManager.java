@@ -16,11 +16,15 @@ public class ApplicationManager {
     private WebDriver wd;
 
     private String browser;
+    private LoginHelper loginHelper;
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
     private SoapHelper soapHelper;
+    private NavigationHelper goTo;
+    private DbHelper db;
+    private UserHelper user;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -56,12 +60,40 @@ public class ApplicationManager {
         return registrationHelper;
     }
 
+    public LoginHelper login() {
+        if (loginHelper == null) {
+            loginHelper = new LoginHelper(this);
+        }
+        return loginHelper;
+    }
+
     public FtpHelper ftp() {
         if (ftp == null) {
             ftp = new FtpHelper(this);
 
         }
         return ftp;
+    }
+
+    public NavigationHelper goTo() {
+        if (goTo == null) {
+            goTo = new NavigationHelper(this);
+        }
+        return goTo;
+    }
+
+    public DbHelper db() {
+        if (db == null) {
+            db = new DbHelper(this);
+        }
+        return db;
+    }
+
+    public UserHelper user() {
+        if (user == null) {
+            user = new UserHelper(this);
+        }
+        return user;
     }
 
         public WebDriver getDriver () {
