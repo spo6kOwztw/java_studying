@@ -38,8 +38,7 @@ public class ChangePasswordTests extends TestBase {
         app.user().initModificationById(user.getId());
         app.user().resetPassword();
         //app.log().out();
-        List<MailMessage> mailMessages = app.james().waitForMail(
-                user.getUsername(), jamesPassword, 50000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 50000);
         String resetPasswordLink = findResetPasswordLink(mailMessages, user.getEmail());
         String newPassword = "paassword";
         app.user().changePassword(resetPasswordLink, newPassword);
