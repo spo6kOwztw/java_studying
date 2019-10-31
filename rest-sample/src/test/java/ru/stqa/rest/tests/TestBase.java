@@ -29,7 +29,7 @@ public class TestBase {
 
     public boolean isIssueOpen(int issueId) throws IOException {
         String json = getExecutor().execute(Request
-                .Get(String.format("http://bugify.stqa.ru/api/issues/1861.json")))
+                .Get(String.format("http://bugify.stqa.ru/api/issues/" + issueId + ".json")))
                 .returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonArray issues = parsed.getAsJsonObject().getAsJsonArray("issues");
