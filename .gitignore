@@ -13,7 +13,6 @@ gradle-app.setting
  gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 *.log
-*.xml
 *.html
 *.css
 *.html
