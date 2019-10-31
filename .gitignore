@@ -1,5 +1,5 @@
 .gradle
-/build/
+.build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -10,13 +10,9 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+ gradle/wrapper/gradle-wrapper.properties
 .idea/workspace.xml
 *.log
-sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.PointTests.html
-sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.PrimesTests.html
-sandbox/build/reports/tests/test/classes/ru.stqa.java_studying_sandbox.EquationTests.html
 *.xml
 *.html
 *.css
