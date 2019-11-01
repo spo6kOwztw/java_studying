@@ -144,6 +144,11 @@ public class ContactHelper extends BaseHelper {
         click(By.name("add"));
     }
 
+    public void addToGroup(ContactData contactData) {
+        selectContactById(contactData.getId());
+        wd.findElement(By.name("add")).click();
+    }
+
     public void initContactRemovingFromGroup() {
         click(By.name("remove"));
     }

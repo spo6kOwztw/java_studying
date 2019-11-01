@@ -12,29 +12,33 @@ import java.util.Objects;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactRemovingFromGroupTest extends TestBase{
+public class ContactRemovingFromGroupTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-
-        if (app.db().groups().size() == 0) {
-            app.goTo().groupPage();
-            app.group().create(new GroupData()
-                    .withName("new1"));
-        }
-        Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
-            app.goTo().homePage();
-            app.contact().createContact(new ContactData()
+
+            if (app.db().groups().size() == 0) {
+                app.goTo().groupPage();
+                app.group().create(new GroupData()
+                        .withName("new1"));
+                app.goTo().homePage();
+            }
+            app.contact().create(new ContactData()
                     .withFirstName("william")
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
-                    .withEmail1("0")
-                    .withGroup(groups.iterator().next()))
-            ;
+                    .withEmail1("0"));
+            Contacts contacts = app.db().contacts();
+            Groups groups = app.db().groups();
+            for (ContactData contact : contacts) {
+                if (contact.getGroups().size() != groups.size()) {
+                    app.contact().addToGroup(contact);
+                }
+            }
+            app.goTo().homePage();
         }
-        app.goTo().homePage();
     }
 
     @Test

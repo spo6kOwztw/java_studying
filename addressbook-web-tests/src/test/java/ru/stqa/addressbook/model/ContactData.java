@@ -117,6 +117,8 @@ public class ContactData {
         return address;
     }
 
+    public Groups getGroups() {return new Groups(groups);}
+
 
     public ContactData withId(int id) {
         this.id = id;

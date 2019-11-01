@@ -17,26 +17,40 @@ public class ContactAddToGroupTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
 
-        if (app.db().groups().size() == 0) {
-            app.goTo().groupPage();
-            app.group().create(new GroupData()
-                    .withName("new1")
-            .withHeader("test")
-            .withFooter("test"));
-        }
-        Groups groups = app.db().groups();
         if (app.db().contacts().size() == 0) {
-            app.goTo().homePage();
-            app.contact().createContact(new ContactData()
+            if (app.db().groups().size() == 0) {
+                app.goTo().groupPage();
+                app.group().create(new GroupData()
+                        .withName("new1")
+                        .withHeader("test")
+                        .withFooter("test"));
+                app.goTo().homePage();
+            }
+            app.contact().create(new ContactData()
                     .withFirstName("william")
                     .withLastName("Burroughs")
                     .withMiddleName("X")
                     .withMobilePhone("0")
-                    .withEmail1("0")
-                    .withGroup(groups.iterator().next()));
-                    }
+                    .withEmail1("0"));
+            app.goTo().homePage();
+        }
+        Contacts contacts = app.db().contacts();
+        Groups groups = app.db().groups();
+        for (ContactData contactData : contacts) {
+            if (contactData.getGroups().size() != groups.size()) {
+                app.contact().create(new ContactData()
+                        .withFirstName("william")
+                        .withLastName("Burroughs")
+                        .withMiddleName("X")
+                        .withMobilePhone("0")
+                        .withEmail1("0"));
+                app.contact().addToGroup(contactData);
+            }
+            return;
+        }
         app.goTo().homePage();
     }
+
     @Test
     public void testContactAddToGroup() {
 
@@ -49,13 +63,15 @@ public class ContactAddToGroupTest extends TestBase {
         int contactId = contact.getId();
         Groups contactGroupsBefore = contact.groups();
 
-        if (groups.size() == 0) { contact = contacts.iterator().next();}
+        if (groups.size() == 0) {
+            contact = contacts.iterator().next();
+        }
         app.goTo().homePage();
 
         GroupData groupForAdd = groups.iterator().next();
         app.goTo().homePage();
 
-        app.contact().addContactToGroup (groupForAdd, contact);
+        app.contact().addContactToGroup(groupForAdd, contact);
 
         Contacts after = app.db().contacts();
         ContactData contactAfter = after.stream().filter(data -> Objects.equals(data.getId(), contactId)).findFirst().get();
@@ -64,5 +80,5 @@ public class ContactAddToGroupTest extends TestBase {
         verifyContactListInUI();
 
 
-}
+    }
 }
