@@ -1,5 +1,6 @@
-.gradle
+.gradle/
 .build/
+.idea/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -17,3 +18,5 @@ gradle-app.setting
 *.css
 *.html
 *tmp
+.idea/gradle.xml
+.idea/modules/addressbook-web-tests_test.iml
