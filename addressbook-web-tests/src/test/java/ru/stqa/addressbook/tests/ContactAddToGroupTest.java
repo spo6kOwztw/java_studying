@@ -44,7 +44,6 @@ public class ContactAddToGroupTest extends TestBase {
                         .withMiddleName("X")
                         .withMobilePhone("0")
                         .withEmail1("0"));
-                app.contact().addToGroup(contactData);
             }
             return;
         }
