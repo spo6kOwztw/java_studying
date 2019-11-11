@@ -24,18 +24,10 @@ public class ContactAddToGroupTest extends TestBase {
                         .withFooter("test"));
                 app.goTo().homePage();
             }
-            app.contact().create(new ContactData()
-                    .withFirstName("william")
-                    .withLastName("Burroughs")
-                    .withMiddleName("X")
-                    .withMobilePhone("0")
-                    .withEmail1("0"));
+
             app.goTo().homePage();
         }
-
-        app.goTo().homePage();
     }
-
     @Test
     public void testContactAddToGroup() {
 
