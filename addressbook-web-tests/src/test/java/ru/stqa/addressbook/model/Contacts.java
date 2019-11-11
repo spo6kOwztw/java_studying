@@ -41,11 +41,4 @@ public class Contacts extends ForwardingSet<ContactData> {
         return contacts;
 
     }
-
-    public Contacts withAdded(ContactData oldContact, ContactData newContact) {
-        Contacts contacts = new Contacts(this);
-        contacts.remove(oldContact);
-        contacts.add(newContact);
-        return contacts;
-    }
 }
