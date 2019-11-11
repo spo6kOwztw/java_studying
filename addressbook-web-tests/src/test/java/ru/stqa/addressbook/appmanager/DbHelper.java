@@ -21,7 +21,7 @@ public class DbHelper {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
-            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+        sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
     public Groups groups() {
@@ -32,25 +32,35 @@ public class DbHelper {
         session.close();
         return new Groups(result);
     }
+
     public Contacts contacts() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-            List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
-            session.getTransaction().commit();
-            session.close();
-            return new Contacts(result);
+        List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+        session.getTransaction().commit();
+        session.close();
+        return new Contacts(result);
 
-        }
-
-        public ContactData contactId(int id) {
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-            ContactData result = (ContactData) session.createQuery("from ContactData where id=" + id).uniqueResult();
-            session.getTransaction().commit();
-            session.close();
-            return result;
-        }
     }
+
+    public ContactData contactId(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        ContactData result = (ContactData) session.createQuery("from ContactData where id=" + id).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public GroupData groupId(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        GroupData result = (GroupData) session.createQuery("from GroupData where id=" + id).uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+}
 
 
 

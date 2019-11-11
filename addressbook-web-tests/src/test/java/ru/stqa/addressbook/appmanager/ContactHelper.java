@@ -159,13 +159,15 @@ public class ContactHelper extends BaseHelper {
         initContactRemovingFromGroup();
     }
     public void goTo(GroupData group) {
-
     }
 
     public void selectGroup(GroupData group) {
         new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
     }
 
+    public void selectGroupToRemove(GroupData group) {
+        wd.findElement(By.cssSelector("option[value=\""+group.getId()+"\"]")).click();
+    }
     public void filterByGroup(GroupData group) {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
     }
