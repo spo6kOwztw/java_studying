@@ -44,7 +44,7 @@ public class ContactAddToGroupTest extends TestBase {
 
     private ContactData contactToAdd(Contacts before) {
         for (ContactData contact : before) {
-            if (contact.getGroups().size() == 0) {
+            if (contact.getGroups().size() < 1) {
                 return contact;
             }
         }
