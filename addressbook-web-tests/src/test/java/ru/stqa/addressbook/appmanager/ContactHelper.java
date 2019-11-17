@@ -140,7 +140,7 @@ public class ContactHelper extends BaseHelper {
 
     public void addContactToGroup(  GroupData groupForAdd, ContactData contact) {
         selectContactById(contact.getId());
-        selectGroup(groupForAdd);
+        selectGroup(groupForAdd.getName());
         click(By.name("add"));
     }
 
@@ -161,8 +161,8 @@ public class ContactHelper extends BaseHelper {
     public void goTo(GroupData group) {
     }
 
-    public void selectGroup(GroupData group) {
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+    private void selectGroup(String group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group);
     }
 
     public void selectGroupToRemove(GroupData group) {

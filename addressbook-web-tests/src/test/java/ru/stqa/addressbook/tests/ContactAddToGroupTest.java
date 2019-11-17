@@ -11,7 +11,8 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactAddToGroupTest extends TestBase {
-
+    private ContactData contactToAdd;
+    private GroupData groupToAdd;
     @BeforeMethod
     public void ensurePreconditions() {
 
@@ -24,39 +25,25 @@ public class ContactAddToGroupTest extends TestBase {
                         .withFooter("test"));
                 app.goTo().homePage();
             }
-
-            app.goTo().homePage();
         }
     }
     @Test
+
     public void testContactAddToGroup() {
-
+        Contacts contacts = app.db().contacts();
+        Groups groups = new Groups();
+        for (ContactData contact : contacts) {
+            groups = app.db().groups();
+            int groupAmount = groups.size();
+            if (contact.getGroups().size() < groupAmount) {
+                contactToAdd = contact;
+                break;}}
+        Groups contactGroups = contactToAdd.getGroups();
+        for (GroupData group : groups) {
+            { if (!contactGroups.contains(group)) {
+                groupToAdd = group;
+                break;
+            }}}
         app.goTo().homePage();
-        Groups groups = app.db().groups();
-        GroupData group = groups.iterator().next();
-        Contacts contactBefore = app.db().contacts();
-        ContactData addedContact = contactToAdd(contactBefore);
-        app.goTo().homePage();
-        app.contact().addContactToGroup(group, addedContact);
-        assertThat(addedContact.getGroups().withAdded(group), equalTo(app.db().contactId(addedContact.getId()).getGroups()));
-        verifyContactListInUI();
-    }
-
-    private ContactData contactToAdd(Contacts before) {
-        for (ContactData contact : before) {
-            if (contact.getGroups().size() < 1) {
-                return contact;
-            }
-        }
-        app.contact().create(new ContactData()
-                .withFirstName("william")
-                .withLastName("Burroughs")
-                .withMiddleName("X")
-                .withMobilePhone("0")
-                .withEmail1("0"));
-        app.goTo().homePage();
-        Contacts contactsToAdd = app.db().contacts();
-        return contactsToAdd.iterator().next();
-
-    }
-}
+        app.contact().addContactToGroup(groupToAdd, contactToAdd);
+        assertThat(contactToAdd.getGroups().withAdded(groupToAdd), equalTo(app.db().contactId(contactToAdd.getId()).getGroups()));}}
